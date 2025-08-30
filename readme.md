@@ -21,9 +21,9 @@
 ```
 
 {
-"plainText": "待加密文字",
-"key": "Base64編碼的AES密鑰",
-"charset": "字元編碼（選填，預設 UTF-8）"
+    "plainText": "待加密文字",
+    "key": "Base64編碼的AES密鑰",
+    "charset": "字元編碼（選填，預設 UTF-8）"
 }
 
 ```
@@ -39,9 +39,9 @@
 ```
 
 {
-"cipherText": "待解密的 Hex 編碼字串",
-"key": "Base64編碼的AES密鑰",
-"charset": "字元編碼（選填，預設 UTF-8）"
+    "cipherText": "待解密的 Hex 編碼字串",
+    "key": "Base64編碼的AES密鑰",
+    "charset": "字元編碼（選填，預設 UTF-8）"
 }
 
 ```
@@ -60,12 +60,12 @@
 
 ```
 
-curl -X POST http://localhost:8080/encrypt \
+curl -X POST http: //localhost:8080/encrypt \
 -H "Content-Type: application/json" \
 -d '{
-"plainText": "Hello World",
-"key": "bWluZHNlY3JldGtleTEyMw==",
-"charset": "UTF-8"
+    "plainText": "Hello World",
+    "key": "bWluZHNlY3JldGtleTEyMw==",
+    "charset": "UTF-8"
 }'
 
 ```
@@ -74,12 +74,12 @@ curl -X POST http://localhost:8080/encrypt \
 
 ```
 
-curl -X POST http://localhost:8080/decrypt \
+curl -X POST http: //localhost:8080/decrypt \
 -H "Content-Type: application/json" \
 -d '{
-"cipherText": "Hex編碼的加密結果",
-"key": "bWluZHNlY3JldGtleTEyMw==",
-"charset": "UTF-8"
+    "cipherText": "Hex編碼的加密結果",
+    "key": "bWluZHNlY3JldGtleTEyMw==",
+    "charset": "UTF-8"
 }'
 
 ```
