@@ -5,7 +5,7 @@
 ## 功能特色
 
 - 使用 AES-GCM（Galois/Counter Mode）演算法，提供安全的加密。
-- 支援 Base64 格式的 AES 密鑰（16、24、32 bytes 長度）。
+-  AES 密鑰（16、24、32 bytes 長度）。
 - 加密結果先 Base64 編碼，再進行 Hex 編碼，方便傳輸與儲存。
 - 提供 REST API 端點，一鍵加密與解密。
 - 支援指定字元編碼（如 UTF-8、Big5 等）。
@@ -22,7 +22,7 @@
 
 {
     "plainText": "待加密文字",
-    "key": "Base64編碼的AES密鑰",
+    "key": "AES密鑰",
     "charset": "字元編碼（選填，預設 UTF-8）"
 }
 
@@ -40,7 +40,7 @@
 
 {
     "cipherText": "待解密的 Hex 編碼字串",
-    "key": "Base64編碼的AES密鑰",
+    "key": "AES密鑰",
     "charset": "字元編碼（選填，預設 UTF-8）"
 }
 
@@ -50,7 +50,7 @@
 
 ## 使用說明
 
-1. 準備一個 Base64 編碼的 AES 密鑰，長度必須是 16、24 或 32 bytes。
+1. 準備一個 AES 密鑰，長度必須是 16、24 或 32 bytes。
 2. 透過工具（如 Postman）呼叫加解密 API。
 3. 傳入欲加密或解密的文字與密鑰，取得結果。
 

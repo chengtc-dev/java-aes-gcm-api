@@ -9,6 +9,7 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
@@ -23,18 +24,27 @@ public class CryptoService {
     private final SecureRandom secureRandom = new SecureRandom();
 
     /**
-     * 從 Base64 編碼的字串創建 SecretKey。
-     * @param base64Key Base64 編碼的密鑰字串。
+     * 從原始位元組創建 SecretKey。
+     * @param keyBytes 原始密鑰位元組，長度需為 16, 24 或 32 bytes。
      * @return SecretKey 物件。
      */
-    private SecretKey getSecretKey(String base64Key) {
-        byte[] decodedKey = Base64.getDecoder().decode(base64Key);
-        // 確保密鑰長度為 16, 24 或 32 bytes (128, 192, 256 bits)
-        if (decodedKey.length != 16 && decodedKey.length != 24 && decodedKey.length != 32) {
+    private SecretKey getSecretKey(byte[] keyBytes) {
+        if (keyBytes.length != 16 && keyBytes.length != 24 && keyBytes.length != 32) {
             throw new IllegalArgumentException("Invalid AES key length.");
         }
-        return new SecretKeySpec(decodedKey, "AES");
+        return new SecretKeySpec(keyBytes, "AES");
     }
+
+    /**
+     * 從字串（例如明文密鑰字串）直接轉成 SecretKey，透過字串的 UTF-8 bytes。
+     * @param keyString 明文密鑰字串，UTF-8 bytes 需為 16, 24, 或 32 bytes。
+     * @return SecretKey 物件。
+     */
+    private SecretKey getSecretKeyFromString(String keyString) {
+        byte[] keyBytes = keyString.getBytes(StandardCharsets.UTF_8);
+        return getSecretKey(keyBytes);
+    }
+
 
     /**
      * 產生安全的隨機 IV (Initialization Vector)。
@@ -49,13 +59,13 @@ public class CryptoService {
     /**
      * 加密明文，並將結果 Base64 編碼後再 Hex 編碼。
      * @param plainText 待加密的明文。
-     * @param base64Key 用於加密的 Base64 編碼密鑰。
+     * @param keyString 用於加密的密鑰。
      * @param charset 明文字元集。
      * @return Hex 編碼的加密結果（IV + 密文 + TAG）。
      * @throws Exception 如果加密失敗。
      */
-    public String encrypt(String plainText, String base64Key, Charset charset) throws Exception {
-        SecretKey secretKey = getSecretKey(base64Key);
+    public String encrypt(String plainText, String keyString, Charset charset) throws Exception {
+        SecretKey secretKey = getSecretKeyFromString(keyString);
         byte[] plainTextBytes = plainText.getBytes(charset);
         byte[] iv = generateIv();
 
@@ -81,13 +91,13 @@ public class CryptoService {
     /**
      * 解密 Hex 編碼的密文。
      * @param hexCipherText Hex 編碼的密文。
-     * @param base64Key 用於解密的 Base64 編碼密鑰。
+     * @param keyString 用於解密的密鑰。
      * @param charset 解密後明文的字元集。
      * @return 解密後的明文。
      * @throws Exception 如果解密失敗。
      */
-    public String decrypt(String hexCipherText, String base64Key, Charset charset) throws Exception {
-        SecretKey secretKey = getSecretKey(base64Key);
+    public String decrypt(String hexCipherText, String keyString, Charset charset) throws Exception {
+        SecretKey secretKey = getSecretKeyFromString(keyString);
 
         // 步驟1: Hex 解碼
         byte[] base64Bytes = Hex.decodeHex(hexCipherText);
