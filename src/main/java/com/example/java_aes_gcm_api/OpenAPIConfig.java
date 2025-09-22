@@ -24,7 +24,8 @@ public class OpenAPIConfig {
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .servers(List.of(
                         new Server().url("http://localhost:8080").description("Local server"),
-                        new Server().url("http://35.212.146.250:8080").description("GCP server")
+                        new Server().url("http://35.212.146.250:8080").description("GCP server"),
+                        new Server().url("https://java-aes-gcm-api.onrender.com").description("Render server")
                 ));
     }
 }

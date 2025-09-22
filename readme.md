@@ -93,7 +93,7 @@ curl -X POST http: //localhost:8080/decrypt \
 ```
 
 pm.sendRequest({
-    url: 'http://35.212.146.250:8080/encrypt',
+    url: 'https://java-aes-gcm-api.onrender.com/encrypt',
     method: 'POST',
     header: {
         'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ pm.sendRequest({
 ```
 
 pm.sendRequest({
-    url: 'http://35.212.146.250:8080/decrypt',
+    url: 'https://java-aes-gcm-api.onrender.com/decrypt',
     method: 'POST',
     header: {
         'Content-Type': 'application/json'
@@ -174,7 +174,7 @@ pm.sendRequest({
 
 ## 注意事項
 
-- AES 密鑰必須是有效且符合長度要求的 Base64 字串。
+- AES 密鑰必須是有效且符合長度要求的字串。
 - 請使用相同的密鑰和字元編碼做加密與解密，否則會失敗。
 - 若部署於其他主機或端口，請調整 API URL。
 - API 基於 Spring Boot，需先安裝 JDK 和 Maven 進行建置與啟動。
