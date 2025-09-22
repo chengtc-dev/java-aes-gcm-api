@@ -5,7 +5,7 @@ FROM openjdk:17
 WORKDIR /app
 
 # 複製本機JAR檔到容器內
-COPY /target/java-aes-gcm-api-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY /java-aes-gcm-api-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # 暴露應用程式的埠(依實際情況設定)
 EXPOSE 8080
